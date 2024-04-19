@@ -10,6 +10,9 @@ namespace PetStore
 
             Console.WriteLine("Press 1 to add a Dog Leash Product");
             Console.WriteLine("Press 2 to view a Dog Leash Product");
+            Console.WriteLine("Press 3 to view all in stock products");
+            Console.WriteLine("Press 4 to view all out of stock products");
+            Console.WriteLine("Press 5 to view all products");
             Console.WriteLine("Type 'exit' to quit");
             string userInput = Console.ReadLine();
 
@@ -58,8 +61,44 @@ namespace PetStore
                     }
                 }
 
+                if (userInput == "3") 
+                {
+                    Console.WriteLine("The following products are in stock: ");
+                    var inStock = productLogic.GetOnlyInStockProducts();
+                    foreach (var item in inStock)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    Console.WriteLine();
+                }
+
+                if (userInput == "4") 
+                {
+                    Console.WriteLine("The following products are out of stock: ");
+                    var outOfStock = productLogic.GetOutOfStockProducts();
+                    foreach (var item in outOfStock)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    Console.WriteLine();
+                }
+
+                if (userInput == "5") 
+                {
+                    Console.WriteLine("The following is a list of all products: ");
+                    var allProducts = productLogic.GetAllProducts();
+                    foreach (var item in allProducts)
+                    {
+                        Console.WriteLine(item.Name);
+                    }
+                    Console.WriteLine();
+                }
+
                 Console.WriteLine("Press 1 to add a Dog Leash Product");
                 Console.WriteLine("Press 2 to view a Dog Leash Product");
+                Console.WriteLine("Press 3 to view all in stock products");
+                Console.WriteLine("Press 4 to view all out of stock products");
+                Console.WriteLine("Press 5 to view all products");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();
             }
