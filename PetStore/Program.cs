@@ -13,6 +13,7 @@ namespace PetStore
             Console.WriteLine("Press 3 to view all in stock products");
             Console.WriteLine("Press 4 to view all out of stock products");
             Console.WriteLine("Press 5 to view all products");
+            Console.WriteLine("Press 6 to view the total price of inventory");
             Console.WriteLine("Type 'exit' to quit");
             string userInput = Console.ReadLine();
 
@@ -94,11 +95,18 @@ namespace PetStore
                     Console.WriteLine();
                 }
 
+                if (userInput == "6") 
+                {
+                    Console.WriteLine($"Current inventory value: {productLogic.GetTotalPriceOfInventory()}");
+                    Console.WriteLine();
+                }
+
                 Console.WriteLine("Press 1 to add a Dog Leash Product");
                 Console.WriteLine("Press 2 to view a Dog Leash Product");
                 Console.WriteLine("Press 3 to view all in stock products");
                 Console.WriteLine("Press 4 to view all out of stock products");
                 Console.WriteLine("Press 5 to view all products");
+                Console.WriteLine("Press 6 to view the total price of inventory");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();
             }

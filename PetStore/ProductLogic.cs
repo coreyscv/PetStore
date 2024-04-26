@@ -53,17 +53,7 @@ namespace PetStore
 
         public List<string> GetOnlyInStockProducts()
         {
-            List<string> inStockProductNames = new List<string>();
-
-            foreach (var prod in _products)
-            {
-                if(prod.Quantity > 0)
-                {
-                    inStockProductNames.Add(prod.Name);
-                }
-            }
-
-            return inStockProductNames;
+            return _products.InStock().Select(x => x.Name).ToList();
         }
 
         public List<string> GetOutOfStockProducts()
@@ -71,6 +61,10 @@ namespace PetStore
             return _products.Where(p => p.Quantity == 0).Select(p => p.Name).ToList();
         }
 
+        public decimal GetTotalPriceOfInventory()
+        {
+            return _products.InStock().Select(x => x.Price).Sum();
+        }
 
 
     }
