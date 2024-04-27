@@ -1,4 +1,4 @@
-﻿namespace PetStore
+﻿namespace PetStore.Products
 {
     internal class Product
     {

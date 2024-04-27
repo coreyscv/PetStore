@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using PetStore.Logic;
+using PetStore.Products;
+using System.Text.Json;
 
 namespace PetStore
 {
@@ -7,17 +9,9 @@ namespace PetStore
         static void Main(string[] args)
         {
             var productLogic = new ProductLogic();
+            string userInput = RequestInput();
 
-            Console.WriteLine("Press 1 to add a Dog Leash Product");
-            Console.WriteLine("Press 2 to view a Dog Leash Product");
-            Console.WriteLine("Press 3 to view all in stock products");
-            Console.WriteLine("Press 4 to view all out of stock products");
-            Console.WriteLine("Press 5 to view all products");
-            Console.WriteLine("Press 6 to view the total price of inventory");
-            Console.WriteLine("Type 'exit' to quit");
-            string userInput = Console.ReadLine();
-
-            while (userInput.ToLower() != "exit") // changes input to lower case, if not equal to "exit" then enter if loop
+            while (userInput.ToLower() != "exit")
             {
                 if (userInput == "1")
                 {
@@ -97,19 +91,30 @@ namespace PetStore
 
                 if (userInput == "6") 
                 {
-                    Console.WriteLine($"Current inventory value: {productLogic.GetTotalPriceOfInventory()}");
+                    Console.WriteLine($"Current inventory value: ${productLogic.GetTotalPriceOfInventory()}");
                     Console.WriteLine();
                 }
 
-                Console.WriteLine("Press 1 to add a Dog Leash Product");
-                Console.WriteLine("Press 2 to view a Dog Leash Product");
-                Console.WriteLine("Press 3 to view all in stock products");
-                Console.WriteLine("Press 4 to view all out of stock products");
-                Console.WriteLine("Press 5 to view all products");
-                Console.WriteLine("Press 6 to view the total price of inventory");
-                Console.WriteLine("Type 'exit' to quit");
-                userInput = Console.ReadLine();
+                userInput = RequestInput();
+
             }
         }
+
+
+        static string RequestInput()
+        {
+            Console.WriteLine("Press 1 to add a Dog Leash Product");
+            Console.WriteLine("Press 2 to view a Dog Leash Product");
+            Console.WriteLine("Press 3 to view all in stock products");
+            Console.WriteLine("Press 4 to view all out of stock products");
+            Console.WriteLine("Press 5 to view all products");
+            Console.WriteLine("Press 6 to view the total price of current inventory");
+            Console.WriteLine("Type 'exit' to quit");
+
+            return Console.ReadLine();
+        }
+
+
+
     }
 }

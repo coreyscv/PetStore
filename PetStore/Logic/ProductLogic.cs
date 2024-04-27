@@ -1,7 +1,8 @@
 ﻿using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
+using PetStore.Products;
 
-namespace PetStore
+namespace PetStore.Logic
 {
     internal class ProductLogic : IProductLogic
     {
@@ -15,8 +16,8 @@ namespace PetStore
             _dogLeash = new Dictionary<string, DogLeash>();
             _catFood = new Dictionary<string, CatFood>();
 
-            AddProduct(new DogLeash { Name = "Leather Leash", Price = 26.99M, Quantity = 5});
-            AddProduct(new DogLeash { Name = "Bedazzled Leash", Price = 20.99M, Quantity = 0});
+            AddProduct(new DogLeash { Name = "Leather Leash", Price = 26.99M, Quantity = 5 });
+            AddProduct(new DogLeash { Name = "Bedazzled Leash", Price = 20.99M, Quantity = 0 });
 
         }
 
