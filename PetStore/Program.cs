@@ -1,4 +1,5 @@
-﻿using PetStore.Logic;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PetStore.Logic;
 using PetStore.Products;
 using System.Text.Json;
 
@@ -8,33 +9,19 @@ namespace PetStore
     {
         static void Main(string[] args)
         {
-            var productLogic = new ProductLogic();
+            var services = CreateServiceCollection();
+
+            var productLogic = services.GetService<IProductLogic>();
+
             string userInput = RequestInput();
 
             while (userInput.ToLower() != "exit")
             {
                 if (userInput == "1")
                 {
-                    var dogLeash = new DogLeash();
-
-                    Console.Write("Enter the name of the leash: ");
-                    dogLeash.Name = Console.ReadLine();
-
-                    Console.Write("Enter Quantity: ");
-                    dogLeash.Quantity = int.Parse(Console.ReadLine());
-
-                    Console.Write("Enter a price for the product: ");
-                    dogLeash.Price = decimal.Parse(Console.ReadLine());
-
-                    Console.Write("Enter Product Description: ");
-                    dogLeash.Description = Console.ReadLine();
-
-                    Console.Write("Confirm the length in inches: ");
-                    dogLeash.LengthInches = int.Parse(Console.ReadLine());
-
-                    Console.Write("What material is the leash made out of: ");
-                    dogLeash.Material = Console.ReadLine();
-
+                    Console.WriteLine("Please add a Dog Leash in JSON format");
+                    var userInputAsJson = Console.ReadLine();
+                    var dogLeash = JsonSerializer.Deserialize<DogLeash>(userInputAsJson);
                     productLogic.AddProduct(dogLeash);
                     Console.WriteLine("Added a Dog Leash");
                 }
@@ -43,7 +30,7 @@ namespace PetStore
                 {
                     Console.WriteLine("What is the name of the dog leash you would like to view?");
                     var dogLeashName = Console.ReadLine();
-                    var dogLeash = productLogic.GetDogLeashByName(dogLeashName);
+                    var dogLeash = productLogic.GetProductByName<DogLeash>(dogLeashName);
 
                     if (dogLeash == null)
                     {
@@ -114,7 +101,12 @@ namespace PetStore
             return Console.ReadLine();
         }
 
-
+        static IServiceProvider CreateServiceCollection()
+        {
+            return new ServiceCollection()
+                .AddTransient<IProductLogic, ProductLogic>()
+                .BuildServiceProvider();
+        }
 
     }
 }

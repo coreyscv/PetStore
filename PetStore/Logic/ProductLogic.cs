@@ -1,6 +1,9 @@
 ﻿using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using PetStore.Products;
+using PetStore.Validators;
+using PetStore.Logic;
+using FluentValidation;
 
 namespace PetStore.Logic
 {
@@ -25,7 +28,16 @@ namespace PetStore.Logic
         {
             if (product is DogLeash)
             {
-                _dogLeash.Add(product.Name, product as DogLeash);
+                var validator = new DogLeashValidator();
+                if (validator.Validate(product as DogLeash).IsValid)
+                {
+                    _dogLeash.Add(product.Name, product as DogLeash);
+                }
+                else
+                {
+                    throw new ValidationException("The dog leash product entered is not valid");
+                }
+
             }
             if (product is CatFood)
             {
@@ -39,11 +51,22 @@ namespace PetStore.Logic
             return _products;
         }
 
-        public DogLeash GetDogLeashByName(string name)
+        public T GetProductByName<T>(string name) where T : Product
         {
             try
             {
-                return _dogLeash[name];
+                if (typeof(T) == typeof(DogLeash))
+                {
+                    return _dogLeash[name] as T;
+                }
+                else if (typeof(T) == typeof(CatFood))
+                {
+                    return _catFood[name] as T;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {

@@ -21,7 +21,7 @@ namespace PetStore.Logic
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public DogLeash GetDogLeashByName(string name);
+        public T GetProductByName<T>(string name) where T : Product;
 
         /// <summary>
         /// Returns only in stock products
